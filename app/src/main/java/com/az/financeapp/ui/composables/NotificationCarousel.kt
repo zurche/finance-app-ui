@@ -1,5 +1,7 @@
 package com.az.financeapp.ui.composables
 
+import androidx.compose.animation.animateColor
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +26,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,7 +40,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import com.az.financeapp.R
-import kotlin.jvm.internal.PropertyReference0
 import kotlin.math.absoluteValue
 
 data class NotificationUIModel(
@@ -108,8 +108,11 @@ fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifica
             verticalArrangement = Arrangement.Center,
         ) {
             repeat(notifications.size) { iteration ->
-                val color =
-                    if (pagerState.currentPage == iteration) notifications[pagerState.currentPage].color else Color.LightGray
+                val transition = updateTransition(targetState = pagerState.currentPage == iteration, label = "")
+
+                val color by transition.animateColor(label = "") { isSelected ->
+                    if (isSelected) notifications[pagerState.currentPage].color else Color.LightGray
+                }
 
                 Box(
                     modifier = Modifier
