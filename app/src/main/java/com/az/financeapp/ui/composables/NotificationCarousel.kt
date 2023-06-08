@@ -116,7 +116,7 @@ fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifica
                         .padding(2.dp)
                         .clip(CircleShape)
                         .background(color)
-                        .size(20.dp)
+                        .size(10.dp)
 
                 )
             }
