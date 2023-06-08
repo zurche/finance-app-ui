@@ -3,7 +3,9 @@ package com.az.financeapp.ui.composables
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,11 +16,15 @@ import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import com.az.financeapp.R
+import kotlin.jvm.internal.PropertyReference0
 import kotlin.math.absoluteValue
 
 data class NotificationUIModel(
@@ -65,30 +72,57 @@ private val mockNotifications: List<NotificationUIModel> = listOf(
 fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifications) {
     val pagerState = rememberPagerState()
 
-    VerticalPager(
-        modifier = Modifier.height(120.dp).padding(16.dp),
-        pageCount = notifications.size,
-        state = pagerState,
-        pageSize = PageSize.Fixed(70.dp)
-    ) { page ->
-
-        CarouselItem(
+    Row(modifier = Modifier.height(110.dp)) {
+        VerticalPager(
             modifier = Modifier
-                .graphicsLayer {
-                    val pageOffset = (
-                            (pagerState.currentPage - page) + pagerState
-                                .currentPageOffsetFraction
-                            ).absoluteValue
+                .height(110.dp)
+                .padding(16.dp)
+                .fillMaxWidth(0.9f),
+            pageCount = notifications.size,
+            state = pagerState,
+            pageSize = PageSize.Fixed(75.dp)
+        ) { page ->
 
-                    alpha = lerp(
-                        start = 0.7f,
-                        stop = 1f,
-                        fraction = 1f - pageOffset.coerceIn(0f, 1f)
-                    )
-                },
-            uiNotification = notifications[page]
-        )
+            CarouselItem(
+                modifier = Modifier
+                    .graphicsLayer {
+                        val pageOffset = (
+                                (pagerState.currentPage - page) + pagerState
+                                    .currentPageOffsetFraction
+                                ).absoluteValue
+
+                        alpha = lerp(
+                            start = 0.7f,
+                            stop = 1f,
+                            fraction = 1f - pageOffset.coerceIn(0f, 1f)
+                        )
+                    },
+                uiNotification = notifications[page]
+            )
+        }
+
+        Column(
+            modifier = Modifier
+                .height(150.dp)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Center,
+        ) {
+            repeat(notifications.size) { iteration ->
+                val color =
+                    if (pagerState.currentPage == iteration) notifications[pagerState.currentPage].color else Color.LightGray
+
+                Box(
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .clip(CircleShape)
+                        .background(color)
+                        .size(20.dp)
+
+                )
+            }
+        }
     }
+
 
 }
 
@@ -112,7 +146,7 @@ private fun CarouselItem(
                 text = uiNotification.text,
                 modifier = Modifier
                     .padding(16.dp)
-                    .fillMaxWidth(0.80f)
+                    .fillMaxWidth(0.9f)
             )
 
 
