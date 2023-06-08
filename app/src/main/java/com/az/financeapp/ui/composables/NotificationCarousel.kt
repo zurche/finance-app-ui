@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -65,9 +66,10 @@ fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifica
     val pagerState = rememberPagerState()
 
     VerticalPager(
-        modifier = Modifier.height(110.dp).padding(16.dp),
+        modifier = Modifier.height(120.dp).padding(16.dp),
         pageCount = notifications.size,
-        state = pagerState
+        state = pagerState,
+        pageSize = PageSize.Fixed(70.dp)
     ) { page ->
 
         CarouselItem(
@@ -79,11 +81,12 @@ fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifica
                             ).absoluteValue
 
                     alpha = lerp(
-                        start = 0.5f,
+                        start = 0.7f,
                         stop = 1f,
                         fraction = 1f - pageOffset.coerceIn(0f, 1f)
                     )
-                }, uiNotification = notifications[page]
+                },
+            uiNotification = notifications[page]
         )
     }
 
