@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -17,35 +19,56 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithContent
-import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Devices.PIXEL_4
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.az.financeapp.R
 
-private val mockNotifications = listOf(
-    "You have 3 recurring charges that are due at the beginning of next month.",
-    "There are 5 subscription payments upcoming next week.",
-    "Your budget for restaurants is exceeded by $134."
+data class NotificationUIModel(
+    val text: String,
+    val icon: Int,
+    val color: Color
+)
+
+private val mockNotifications: List<NotificationUIModel> = listOf(
+    NotificationUIModel(
+        "You have 3 recurring charges that are due at the beginning of next month.",
+        R.drawable.credit_card_outline,
+        Color(0xFFe1e1fd)
+    ),
+    NotificationUIModel(
+        "There are 5 subscription payments upcoming next week.",
+        R.drawable.recurring_payment_icon,
+        Color(0xFFf9dac5)
+    ),
+    NotificationUIModel(
+        "Your budget for restaurants is exceeded by \$134.",
+        R.drawable.exceed_budget,
+        Color(0xFFc4eceb)
+    )
 )
 
 @Composable
-@Preview
-fun NotificationCarousel(notifications: List<String> = mockNotifications) {
+@Preview(device = PIXEL_4)
+fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifications) {
 
-    CarouselItem(text = notifications[0], icon = R.drawable.credit_card_outline)
+    LazyColumn(content = {
+        itemsIndexed(notifications) { _, notification ->
+            CarouselItem(uiNotification = notification)
+        }
+    })
 
 }
 
 @Composable
-@Preview
+@Preview(device = PIXEL_4)
 private fun CarouselItem(
-    text: String = "",
-    icon: Int = R.drawable.credit_card_outline
+    uiNotification: NotificationUIModel = mockNotifications[0]
 ) {
     Box(
         modifier = Modifier
@@ -56,7 +79,7 @@ private fun CarouselItem(
     {
         Row(
             modifier = Modifier
-                .background(Color(0xFFBDAFAF))
+                .background(uiNotification.color)
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
             verticalAlignment = CenterVertically,
@@ -64,36 +87,35 @@ private fun CarouselItem(
         ) {
 
             Text(
-                text = mockNotifications[0], modifier = Modifier
+                text = uiNotification.text,
+                modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth(0.80f)
             )
 
 
-            InnerShadowRoundIcon(icon)
+            RoundIcon(uiNotification.icon)
         }
     }
 }
 
 @Composable
 @Preview
-private fun InnerShadowRoundIcon(icon: Int = R.drawable.credit_card_outline) {
+private fun RoundIcon(icon: Int = R.drawable.credit_card_outline) {
     BoxWithConstraints(
         modifier = Modifier
             .size(30.dp)
             .clip(CircleShape)
-            .background(Color(0xFFBDAFAF))
-            .drawWithContent {
+            .drawBehind {
+                val circleSize = size.width
 
                 // Draw the inner shadow
                 drawCircle(
-                    color = Color.Gray,
-                    center = Offset(size.width / 2, size.height / 2),
-                    radius = size.width / 2,
+                    color = Color.DarkGray,
+                    center = Offset(circleSize / 2, circleSize / 2),
+                    radius = circleSize / 2 - 1.dp.toPx(),
                     style = Stroke(1.dp.toPx())
                 )
-
-                drawContent()
             }
     ) {
         Icon(
@@ -107,5 +129,7 @@ private fun InnerShadowRoundIcon(icon: Int = R.drawable.credit_card_outline) {
     }
 }
 
+
 //TODO: Add shadow to inner circle
+//TODO: Add animation to carousel
 
