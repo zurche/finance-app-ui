@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -86,10 +87,10 @@ private fun InnerShadowRoundIcon(icon: Int = R.drawable.credit_card_outline) {
 
                 // Draw the inner shadow
                 drawCircle(
-                    color = Color.Black,
+                    color = Color.Gray,
                     center = Offset(size.width / 2, size.height / 2),
                     radius = size.width / 2,
-                    style = Stroke(4.dp.toPx())
+                    style = Stroke(1.dp.toPx())
                 )
 
                 drawContent()
@@ -105,4 +106,6 @@ private fun InnerShadowRoundIcon(icon: Int = R.drawable.credit_card_outline) {
         )
     }
 }
+
+//TODO: Add shadow to inner circle
 
