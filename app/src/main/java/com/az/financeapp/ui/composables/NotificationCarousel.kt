@@ -13,6 +13,7 @@ import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -64,7 +65,7 @@ fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifica
     val pagerState = rememberPagerState()
 
     VerticalPager(
-        modifier = Modifier.height(100.dp),
+        modifier = Modifier.height(110.dp).padding(16.dp),
         pageCount = notifications.size,
         state = pagerState
     ) { page ->
