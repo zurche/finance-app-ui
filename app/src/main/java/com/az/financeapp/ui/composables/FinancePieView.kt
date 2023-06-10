@@ -1,5 +1,7 @@
 package com.az.financeapp.ui.composables
 
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,6 +11,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -74,6 +78,11 @@ fun FinancePieChart(
 
     val currentAngle = currentValue / fullValue * 360f
 
+    val animatedProgress = remember { Animatable(0f) }
+    LaunchedEffect(currentAngle) {
+        animatedProgress.animateTo(currentAngle, animationSpec = tween(durationMillis = 1000))
+    }
+
     Canvas(
         modifier = Modifier
             .size(85.dp)
@@ -97,7 +106,7 @@ fun FinancePieChart(
                     bottom = center.y + radius
                 ),
                 startAngleDegrees = -90f, // Modify starting angle to -90 degrees (top of the circle)
-                sweepAngleDegrees = currentAngle,
+                sweepAngleDegrees = animatedProgress.value,
                 forceMoveTo = false
             )
         }
