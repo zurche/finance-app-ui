@@ -60,7 +60,7 @@ fun FinancePieChart(currentValue: Float = 1.0f, fullValue: Float = 4.0f ) {
                     right = center.x + radius,
                     bottom = center.y + radius
                 ),
-                startAngleDegrees = 0f,
+                startAngleDegrees = 270f, // Modify starting angle to 270 degrees
                 sweepAngleDegrees = currentAngle,
                 forceMoveTo = false
             )
