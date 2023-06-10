@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_4
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_4_XL
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.az.financeapp.ui.theme.DarkPurple
@@ -70,7 +69,7 @@ fun FinancePieRowView(
 
 @Composable
 @Preview(device = PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
-fun FinancePieView(
+private fun FinancePieView(
     pieData: FinancePieData = FinancePieData("Today", 181.39f, 1000f),
     color: Color = DarkTeal
 ) {
