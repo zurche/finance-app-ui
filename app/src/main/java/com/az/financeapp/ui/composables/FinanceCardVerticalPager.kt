@@ -6,7 +6,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,21 +17,15 @@ import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_4
@@ -69,7 +62,7 @@ private val mockNotifications: List<NotificationUIModel> = listOf(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Preview(device = PIXEL_4)
-fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifications) {
+fun FinanceCardVerticalPager(notifications: List<NotificationUIModel> = mockNotifications) {
     val pagerState = rememberPagerState()
 
     Row(modifier = Modifier.height(110.dp)) {
@@ -83,7 +76,7 @@ fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifica
             pageSize = PageSize.Fixed(75.dp)
         ) { page ->
 
-            CarouselItem(
+            FinanceNotificationCard(
                 modifier = Modifier
                     .graphicsLayer {
                         val pageOffset = (
@@ -108,7 +101,8 @@ fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifica
             verticalArrangement = Arrangement.Center,
         ) {
             repeat(notifications.size) { iteration ->
-                val transition = updateTransition(targetState = pagerState.currentPage == iteration, label = "")
+                val transition =
+                    updateTransition(targetState = pagerState.currentPage == iteration, label = "")
 
                 val color by transition.animateColor(label = "") { isSelected ->
                     if (isSelected) notifications[pagerState.currentPage].color else Color.LightGray
@@ -131,11 +125,14 @@ fun NotificationCarousel(notifications: List<NotificationUIModel> = mockNotifica
 
 @Composable
 @Preview(device = PIXEL_4)
-private fun CarouselItem(
+private fun FinanceNotificationCard(
     modifier: Modifier = Modifier,
     uiNotification: NotificationUIModel = mockNotifications[0]
 ) {
-    Card(modifier = modifier) {
+    Card(modifier = modifier,
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 7.dp
+        )) {
         Row(
             modifier = Modifier
                 .background(uiNotification.color)
@@ -148,47 +145,19 @@ private fun CarouselItem(
             Text(
                 text = uiNotification.text,
                 modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(0.9f)
+                    .padding(start = 16.dp, top = 16.dp, bottom = 16.dp)
+                    .fillMaxWidth(0.85f)
             )
 
-
-            RoundIcon(uiNotification.icon)
+            Icon(
+                painter = painterResource(id = uiNotification.icon),
+                contentDescription = "Icon",
+                tint = Color.Black,
+                modifier = Modifier
+                    .padding(9.dp)
+                    .size(24.dp)
+            )
         }
     }
 }
-
-@Composable
-@Preview
-private fun RoundIcon(icon: Int = R.drawable.credit_card_outline) {
-    BoxWithConstraints(
-        modifier = Modifier
-            .size(30.dp)
-            .clip(CircleShape)
-            .drawBehind {
-                val circleSize = size.width
-
-                // Draw the inner shadow
-                drawCircle(
-                    color = Color.DarkGray,
-                    center = Offset(circleSize / 2, circleSize / 2),
-                    radius = circleSize / 2 - 1.dp.toPx(),
-                    style = Stroke(1.dp.toPx())
-                )
-            }
-    ) {
-        Icon(
-            painter = painterResource(id = icon),
-            contentDescription = "Icon",
-            tint = Color.Black,
-            modifier = Modifier
-                .padding(9.dp)
-                .align(Alignment.Center)
-        )
-    }
-}
-
-
-//TODO: Add shadow to inner circle
-//TODO: Add animation to carousel
 
