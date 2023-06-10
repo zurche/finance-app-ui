@@ -1,6 +1,8 @@
 package com.az.financeapp.ui.composables
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
@@ -80,7 +82,13 @@ fun FinancePieChart(
 
     val animatedProgress = remember { Animatable(0f) }
     LaunchedEffect(currentAngle) {
-        animatedProgress.animateTo(currentAngle, animationSpec = tween(durationMillis = 1000))
+        animatedProgress.animateTo(
+            currentAngle,
+            animationSpec = spring(
+                dampingRatio = Spring.DampingRatioMediumBouncy,
+                stiffness = Spring.StiffnessLow
+            )
+        )
     }
 
     Canvas(
