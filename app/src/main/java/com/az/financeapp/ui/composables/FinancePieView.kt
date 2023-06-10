@@ -7,6 +7,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -52,13 +53,13 @@ fun FinancePieRowView(
         mockMarchValue
     )
 ) {
-    Row {
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
         FinancePieView(pieDataPair.first, DarkTeal)
 
         Divider(
             Modifier
-                .width(3.dp)
-                .height(48.dp)
+                .width(2.dp)
+                .height(30.dp)
                 .clip(RoundedCornerShape(4.dp))
                 .align(CenterVertically), color = Color(0xffe8eaed)
         )
@@ -73,7 +74,7 @@ fun FinancePieView(
     pieData: FinancePieData = FinancePieData("Today", 181.39f, 1000f),
     color: Color = DarkTeal
 ) {
-    Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.SpaceEvenly) {
+    Row(verticalAlignment = CenterVertically, horizontalArrangement = Arrangement.SpaceEvenly) {
         FinancePieChart(pieData.currentValue, pieData.fullValue, color)
 
         SummaryView(pieData.label, pieData.currentValue)
@@ -84,16 +85,16 @@ fun FinancePieView(
 @Preview(device = PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
 private fun SummaryView(label: String = "Today", currentValue: Float = 181.39f) {
     Column(modifier = Modifier.padding(4.dp), verticalArrangement = Arrangement.Bottom) {
-        Text(text = label, style = MaterialTheme.typography.bodyLarge, color = Color.Gray)
+        Text(text = label, style = MaterialTheme.typography.titleSmall, color = Color.Gray)
         Row(verticalAlignment = Alignment.Bottom) {
             Text(
                 text = "$${currentValue.toInt()}",
-                style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold)
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
             )
             Text(
-                modifier = Modifier.padding(bottom = 4.dp),
+                modifier = Modifier.padding(bottom = 2.dp),
                 text = getFloatingPoint(currentValue),
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodySmall
             )
         }
 
@@ -130,7 +131,7 @@ fun FinancePieChart(
 
     Canvas(
         modifier = Modifier
-            .size(85.dp)
+            .size(70.dp)
             .padding(16.dp)
     ) {
         val canvasSize = size.minDimension
@@ -138,7 +139,7 @@ fun FinancePieChart(
         val center = Offset(canvasSize / 2, canvasSize / 2)
 
         // Draw full value pie
-        drawCircle(color = fullColor, radius = radius, center = center, style = Stroke(25.0f))
+        drawCircle(color = fullColor, radius = radius, center = center, style = Stroke(15.0f))
 
         // Draw current value pie
         val path = Path().apply {
@@ -155,6 +156,6 @@ fun FinancePieChart(
                 forceMoveTo = false
             )
         }
-        drawPath(path = path, color = keyColor, style = Stroke(30.0f))
+        drawPath(path = path, color = keyColor, style = Stroke(20.0f))
     }
 }
