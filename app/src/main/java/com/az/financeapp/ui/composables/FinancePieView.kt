@@ -68,7 +68,7 @@ private fun getFloatingPoint(floatNumber: Float): String {
 fun FinancePieChart(
     currentValue: Float = 181.39f,
     fullValue: Float = 1000f,
-    keyColor: Color = Color.Green
+    keyColor: Color = Color.Green.copy(blue = 0.4f)
 ) {
     val fullColor = keyColor.copy(alpha = 0.2f)
 
