@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_4
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.az.financeui.theme.DarkPurple
 import com.az.financeui.theme.DarkTeal
@@ -111,7 +112,10 @@ private fun getFloatingPoint(floatNumber: Float): String {
 fun FinancePieChart(
     currentValue: Float = 181.39f,
     fullValue: Float = 1000f,
-    keyColor: Color = DarkTeal
+    keyColor: Color = DarkTeal,
+    pieSize: Dp = 70.dp,
+    piePadding: Dp = 16.dp,
+    strokeSize: Float = 20.0f
 ) {
     val fullColor = keyColor.copy(alpha = 0.3f)
 
@@ -130,15 +134,15 @@ fun FinancePieChart(
 
     Canvas(
         modifier = Modifier
-            .size(70.dp)
-            .padding(16.dp)
+            .size(pieSize)
+            .padding(piePadding)
     ) {
         val canvasSize = size.minDimension
         val radius = canvasSize / 2
         val center = Offset(canvasSize / 2, canvasSize / 2)
 
         // Draw full value pie
-        drawCircle(color = fullColor, radius = radius, center = center, style = Stroke(15.0f))
+        drawCircle(color = fullColor, radius = radius, center = center, style = Stroke(strokeSize - 5))
 
         // Draw current value pie
         val path = Path().apply {
@@ -155,6 +159,6 @@ fun FinancePieChart(
                 forceMoveTo = false
             )
         }
-        drawPath(path = path, color = keyColor, style = Stroke(20.0f))
+        drawPath(path = path, color = keyColor, style = Stroke(strokeSize))
     }
 }
