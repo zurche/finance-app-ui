@@ -1,4 +1,4 @@
-package com.az.financeapp.ui
+package com.az.financeapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
