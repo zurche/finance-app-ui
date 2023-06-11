@@ -1,4 +1,4 @@
-package com.az.financeapp.ui.composables
+package com.az.financeui.composables
 
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.updateTransition
@@ -32,7 +32,7 @@ import androidx.compose.ui.tooling.preview.Devices.PIXEL_4
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
-import com.az.financeapp.R
+import com.az.financeui.R
 import kotlin.math.absoluteValue
 
 data class NotificationUIModel(

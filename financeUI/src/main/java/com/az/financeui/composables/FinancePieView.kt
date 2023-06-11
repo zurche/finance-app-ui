@@ -1,4 +1,4 @@
-package com.az.financeapp.ui.composables
+package com.az.financeui.composables
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
@@ -32,8 +32,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_4
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.az.financeapp.ui.theme.DarkPurple
-import com.az.financeapp.ui.theme.DarkTeal
+import com.az.financeui.theme.DarkPurple
+import com.az.financeui.theme.DarkTeal
 
 data class FinancePieData(
     val label: String,
