@@ -2,7 +2,7 @@
 This project is a test mock application with an internal UI library for a Finance App.
 
 ## Pie Row View
-![PieRowDemoScreen](https://github.com/zurche/finance-app-ui/assets/15671525/f2415450-9405-470b-a6fd-62c6f71e2ea4)
+![Screenshot 2023-06-11 at 16 52 01](https://github.com/zurche/finance-app-ui/assets/15671525/e6b6cc50-20f7-4bb1-9825-d678363e4c60)
 
 The Pie Row View Composable is designed to display two different categories of budgets with three key values:
 - Label: Describes the category
@@ -29,7 +29,8 @@ val pieDataPair = Pair(servicesBudget, transportBudget)
 FinancePieRowView(pieDataPair)
 ```
 
-img
+
+
 
 For more usage examples, refer to the [FinancePieRowDemoScreen](https://github.com/zurche/finance-app-ui/blob/main/app/src/main/java/com/az/financeapp/ui/screens/FinancePieRowDemoScreen.kt) file in this repository.
 # Plain Pie
