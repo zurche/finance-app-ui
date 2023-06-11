@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -69,14 +70,28 @@ fun CryptoWalletCoinCardUI(
             .padding(24.dp)
             .size(300.dp)
     ) {
-        Row(modifier = Modifier.padding(top = 8.dp)) {
-            Text(
-                text = "${data.valueChange}%",
-                color = textColor,
-                style = MaterialTheme.typography.titleLarge
-            )
+        Row(
+            modifier = Modifier
+                .padding(top = 10.dp, end = 13.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row {
+                Text(
+                    text = "${data.valueChange}%",
+                    color = textColor,
+                    style = MaterialTheme.typography.titleLarge
+                )
 
-            ChangeIcon(data, textColor)
+                ChangeIcon(data, textColor)
+            }
+
+            Icon(
+                painter = painterResource(id = data.icon),
+                contentDescription = "Card Icon",
+                tint = Color.Black,
+                modifier = Modifier.size(40.dp)
+            )
         }
 
         Column(
@@ -128,7 +143,10 @@ private fun ChangeIcon(
 }
 
 @Composable
-fun CardWithCornerShape(cardBackground: Color = Color.Black, cardSize: Int = 350) {
+fun CardWithCornerShape(
+    cardBackground: Color = Color.Black,
+    cardSize: Int = 350
+) {
     Card(
         modifier = Modifier
             .size(cardSize.dp)
@@ -180,7 +198,7 @@ fun CardWithCornerShape(cardBackground: Color = Color.Black, cardSize: Int = 350
                             startAngle = 270f,
                             sweepAngle = 90f,
                             useCenter = true,
-                            topLeft = Offset(x = size.width - (cardSize * 2.065f), y = 0f),
+                            topLeft = Offset(x = size.width - (cardSize * 2.058f), y = 0f),
                             size = Size(
                                 width = cardSize.toFloat() + 20f,
                                 height = cardSize.toFloat() + 20f
@@ -202,7 +220,7 @@ fun CardWithCornerShape(cardBackground: Color = Color.Black, cardSize: Int = 350
                             sweepAngle = 90f,
                             useCenter = true,
                             topLeft = Offset(
-                                x = size.width - (cardSize * 1.066f),
+                                x = size.width - (cardSize * 1.058f),
                                 y = cardSize.toFloat()
                             ),
                             size = Size(
@@ -211,9 +229,18 @@ fun CardWithCornerShape(cardBackground: Color = Color.Black, cardSize: Int = 350
                             )
                         )
 
+                        drawCircle(
+                            color = Color(0xFFf3f3f3),
+                            radius = radius * 0.8f,
+                            center = Offset(
+                                x = size.width - radius + (radius * 0.2f),
+                                y = radius - (radius * 0.2f)
+                            )
+                        )
                     }
                 }
                 .fillMaxSize()
         )
+
     }
 }
