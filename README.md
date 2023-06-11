@@ -33,5 +33,23 @@ FinancePieRowView(pieDataPair)
 
 
 For more usage examples, refer to the [FinancePieRowDemoScreen](https://github.com/zurche/finance-app-ui/blob/main/app/src/main/java/com/az/financeapp/ui/screens/FinancePieRowDemoScreen.kt) file in this repository.
+
 # Plain Pie
-[PlainPiePreview.webm](https://github.com/zurche/finance-app-ui/assets/15671525/8c8d658a-a9ab-4972-9019-04b3c426056c)
+The Plain Pie is one of the parts of the Pie Row View. Its used to display the state of the budget and can be used as a standalone Composable.
+
+Here's an example of initialisation:
+```kotlin
+PlainPie(
+    keyColor = Pine,
+    currentValue = 2.0f,
+    fullValue = 13.0f,
+    pieSize = 150.dp,
+    strokeSize = 40.0f
+)
+```
+
+img
+
+The Pie has a small spring animation when the values are loaded into it and the canvas is drawn.
+
+To find out some usage examples refer to the [PlainPieDemoScreen](https://github.com/zurche/finance-app-ui/blob/main/app/src/main/java/com/az/financeapp/ui/screens/PlainPieDemoScreen.kt)
