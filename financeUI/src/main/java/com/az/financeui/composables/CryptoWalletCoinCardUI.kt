@@ -1,14 +1,9 @@
 package com.az.financeui.composables
 
-import android.graphics.Paint
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -24,24 +19,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PaintingStyle
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.drawscope.inset
-import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.graphics.drawscope.scale
-import androidx.compose.ui.graphics.drawscope.translate
-import androidx.compose.ui.graphics.drawscope.withTransform
-import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.az.financeui.R
 
@@ -79,49 +61,43 @@ fun CryptoWalletCoinCardUI(
         CryptoCardStyle.Light -> Color(0xFF000000)
     }
 
-    Card(
+    CardWithCornerShape(cardBackground)
+
+    Column(
+        verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
-            .padding(4.dp)
-            .size(300.dp),
-        colors = CardDefaults.cardColors(containerColor = cardBackground)
+            .padding(24.dp)
+            .size(300.dp)
     ) {
-        Column(
-            verticalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxHeight()
-        ) {
-            Row(modifier = Modifier.padding(top = 8.dp)) {
-                Text(
-                    text = "${data.valueChange}%",
-                    color = textColor,
-                    style = MaterialTheme.typography.titleLarge
-                )
+        Row(modifier = Modifier.padding(top = 8.dp)) {
+            Text(
+                text = "${data.valueChange}%",
+                color = textColor,
+                style = MaterialTheme.typography.titleLarge
+            )
 
-                ChangeIcon(data, textColor)
-            }
-
-            Column(
-                verticalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.padding(bottom = 8.dp)
-            ) {
-                Text(
-                    text = data.name,
-                    color = textColor,
-                    style = MaterialTheme.typography.headlineSmall
-                )
-                Text(
-                    text = "${data.value}",
-                    color = textColor,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-                Text(
-                    text = "$${data.currentTotal}",
-                    color = textColor
-                )
-            }
+            ChangeIcon(data, textColor)
         }
 
+        Column(
+            verticalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier.padding(bottom = 8.dp)
+        ) {
+            Text(
+                text = data.name,
+                color = textColor,
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Text(
+                text = "${data.value}",
+                color = textColor,
+                style = MaterialTheme.typography.headlineMedium
+            )
+            Text(
+                text = "$${data.currentTotal}",
+                color = textColor
+            )
+        }
     }
 }
 
@@ -152,24 +128,17 @@ private fun ChangeIcon(
 }
 
 @Composable
-@Preview(backgroundColor = 0xFFFFFFFF, showBackground = true)
-fun CardWithCornerShape() {
-    val cardSize = 300
+fun CardWithCornerShape(cardBackground: Color = Color.Black, cardSize: Int = 350) {
     Card(
         modifier = Modifier
             .size(cardSize.dp)
             .clip(RoundedCornerShape(2.dp))
             .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Black)
+        colors = CardDefaults.cardColors(containerColor = cardBackground)
     ) {
         Spacer(
             modifier = Modifier
                 .drawWithCache {
-                    val path = Path()
-                    path.moveTo(0f, 0f)
-                    path.lineTo(size.width / 2f, size.height / 2f)
-                    path.lineTo(size.width, 0f)
-                    path.close()
                     onDrawBehind {
                         val radius = cardSize / 2f
 
@@ -187,7 +156,10 @@ fun CardWithCornerShape() {
 
                         drawRect(
                             color = Color.White,
-                            topLeft = Offset(x = size.width - (cardSize / 2f), y = (cardSize / 2.08f)),
+                            topLeft = Offset(
+                                x = size.width - (cardSize / 2f),
+                                y = (cardSize / 2.08f)
+                            ),
                             size = size / 5f
                         )
 
@@ -204,27 +176,39 @@ fun CardWithCornerShape() {
                         )
 
                         drawArc(
-                            color = Color.Black,
+                            color = cardBackground,
                             startAngle = 270f,
                             sweepAngle = 90f,
                             useCenter = true,
                             topLeft = Offset(x = size.width - (cardSize * 2.065f), y = 0f),
-                            size = Size(width = cardSize.toFloat() + 20f, height = cardSize.toFloat() + 20f)
+                            size = Size(
+                                width = cardSize.toFloat() + 20f,
+                                height = cardSize.toFloat() + 20f
+                            )
                         )
 
                         drawRect(
                             color = Color.White,
-                            topLeft = Offset(x = size.width - (cardSize / 2f), y = cardSize.toFloat()),
+                            topLeft = Offset(
+                                x = size.width - (cardSize / 2f),
+                                y = cardSize.toFloat()
+                            ),
                             size = size / 5f
                         )
 
                         drawArc(
-                            color = Color.Black,
+                            color = cardBackground,
                             startAngle = 270f,
                             sweepAngle = 90f,
                             useCenter = true,
-                            topLeft = Offset(x = size.width - (cardSize * 1.066f), y = cardSize.toFloat()),
-                            size = Size(width = cardSize.toFloat() + 20f, height = cardSize.toFloat() + 20f)
+                            topLeft = Offset(
+                                x = size.width - (cardSize * 1.066f),
+                                y = cardSize.toFloat()
+                            ),
+                            size = Size(
+                                width = cardSize.toFloat() + 20f,
+                                height = cardSize.toFloat() + 20f
+                            )
                         )
 
                     }
