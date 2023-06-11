@@ -39,11 +39,12 @@ import com.az.financeui.theme.DarkTeal
 data class FinancePieData(
     val label: String,
     val currentValue: Float,
-    val fullValue: Float
+    val fullValue: Float,
+    val keyColor: Color
 )
 
-private val mockTodayValue = FinancePieData("Today", 181.39f, 1000f)
-private val mockMarchValue = FinancePieData("March", 734.02f, 1000f)
+private val mockTodayValue = FinancePieData("Today", 181.39f, 1000f, DarkTeal)
+private val mockMarchValue = FinancePieData("March", 734.02f, 1000f, DarkPurple)
 
 @Composable
 @Preview(device = PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
@@ -54,7 +55,7 @@ fun FinancePieRowView(
     )
 ) {
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-        FinancePieView(pieDataPair.first, DarkTeal)
+        FinancePieView(pieDataPair.first)
 
         Divider(
             Modifier
@@ -64,18 +65,17 @@ fun FinancePieRowView(
                 .align(CenterVertically), color = Color(0xffe8eaed)
         )
 
-        FinancePieView(pieDataPair.second, DarkPurple)
+        FinancePieView(pieDataPair.second)
     }
 }
 
 @Composable
 @Preview(device = PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
 private fun FinancePieView(
-    pieData: FinancePieData = FinancePieData("Today", 181.39f, 1000f),
-    color: Color = DarkTeal
+    pieData: FinancePieData = FinancePieData("Today", 181.39f, 1000f, DarkPurple)
 ) {
     Row(verticalAlignment = CenterVertically, horizontalArrangement = Arrangement.SpaceEvenly) {
-        PlainPie(pieData.currentValue, pieData.fullValue, color)
+        PlainPie(pieData.currentValue, pieData.fullValue, pieData.keyColor)
 
         SummaryView(pieData.label, pieData.currentValue)
     }
@@ -141,7 +141,12 @@ fun PlainPie(
         val center = Offset(canvasSize / 2, canvasSize / 2)
 
         // Draw full value pie
-        drawCircle(color = fullColor, radius = radius, center = center, style = Stroke(strokeSize - 5))
+        drawCircle(
+            color = fullColor,
+            radius = radius,
+            center = center,
+            style = Stroke(strokeSize - 5)
+        )
 
         // Draw current value pie
         val path = Path().apply {
