@@ -75,7 +75,7 @@ private fun FinancePieView(
     color: Color = DarkTeal
 ) {
     Row(verticalAlignment = CenterVertically, horizontalArrangement = Arrangement.SpaceEvenly) {
-        FinancePieChart(pieData.currentValue, pieData.fullValue, color)
+        PlainPie(pieData.currentValue, pieData.fullValue, color)
 
         SummaryView(pieData.label, pieData.currentValue)
     }
@@ -109,12 +109,11 @@ private fun getFloatingPoint(floatNumber: Float): String {
 
 @Composable
 @Preview(device = PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
-fun FinancePieChart(
+fun PlainPie(
     currentValue: Float = 181.39f,
     fullValue: Float = 1000f,
     keyColor: Color = DarkTeal,
     pieSize: Dp = 70.dp,
-    piePadding: Dp = 16.dp,
     strokeSize: Float = 20.0f
 ) {
     val fullColor = keyColor.copy(alpha = 0.3f)
@@ -135,7 +134,7 @@ fun FinancePieChart(
     Canvas(
         modifier = Modifier
             .size(pieSize)
-            .padding(piePadding)
+            .padding(16.dp)
     ) {
         val canvasSize = size.minDimension
         val radius = canvasSize / 2
