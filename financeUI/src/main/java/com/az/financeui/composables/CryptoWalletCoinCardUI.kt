@@ -114,7 +114,7 @@ fun CryptoWalletCoinCardUI(
                     Text(
                         text = "${data.valueChange}%",
                         color = textColor,
-                        style = MaterialTheme.typography.bodySmall
+                        style = MaterialTheme.typography.labelMedium
                     )
 
                     ChangeIcon(data.valueChange)
@@ -135,16 +135,17 @@ fun CryptoWalletCoinCardUI(
                 Text(
                     text = data.name,
                     color = textColor,
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.labelMedium
                 )
                 Text(
                     text = "${data.value}",
                     color = textColor,
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.headlineSmall
                 )
                 Text(
                     text = "$${data.currentTotal}",
-                    color = textColor
+                    color = textColor,
+                    style = MaterialTheme.typography.labelSmall
                 )
             }
         }
