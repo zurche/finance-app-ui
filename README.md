@@ -32,7 +32,8 @@ FinancePieRowView(pieDataPair)
 
 For more usage examples, refer to the [FinancePieRowDemoScreen](https://github.com/zurche/finance-app-ui/blob/main/app/src/main/java/com/az/financeapp/ui/screens/FinancePieRowDemoScreen.kt) file in this repository.
 
-# Plain Pie
+
+## Plain Pie
 ![Screenshot 2023-06-11 at 16 57 20](https://github.com/zurche/finance-app-ui/assets/15671525/e45602a8-9db9-446b-a7dc-ed95786d3887)
 
 Why settle for a plain pie when you can have a scrumptious Plain Pie? The Plain Pie is one of the parts of the Pie Row View. It's used to display the state of the budget and can be used as a standalone Composable.
@@ -52,7 +53,9 @@ The Pie has a small spring animation when the values are loaded into it and the 
 
 To find out some usage examples, refer to the [PlainPieDemoScreen](https://github.com/zurche/finance-app-ui/blob/main/app/src/main/java/com/az/financeapp/ui/screens/PlainPieDemoScreen.kt).
 
-# Crypto Card
+
+## Crypto Card
+![Screenshot 2023-06-12 at 21 06 30](https://github.com/zurche/finance-app-ui/assets/15671525/e30f1c50-672b-4fb0-a07e-7e8aab5978bf)
 
 Are you ready to dive into the world of crypto? The Crypto Card is a Composable that displays the current state of a cryptocurrency.
 
@@ -84,5 +87,6 @@ CryptoWalletCoinCardUI(
     )
 )
 ```
+![Screenshot 2023-06-12 at 21 11 41](https://github.com/zurche/finance-app-ui/assets/15671525/ca8c26bd-b854-42a9-b18e-88f78d441907)
 
 To find out some usage examples, refer to the [CryptoCardDemoScreen](https://github.com/zurche/finance-app-ui/blob/main/app/src/main/java/com/az/financeapp/ui/screens/CryptoWalletHomeScreen.kt).
