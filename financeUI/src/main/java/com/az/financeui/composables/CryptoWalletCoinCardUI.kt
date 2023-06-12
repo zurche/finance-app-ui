@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.az.financeui.R
+import java.text.DecimalFormat
 
 data class CryptoWalletCoinCardData(
     val name: String,
@@ -144,14 +145,18 @@ fun CryptoWalletCoinCardUI(
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Text(
-                    text = "$${data.currentTotal}",
+                    text = formatCurrentTotal(data.currentTotal),
                     color = textColor,
-                    style = MaterialTheme.typography.labelSmall
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
         }
     }
+}
 
+private fun formatCurrentTotal(currentTotal: Long) : String {
+    val decimalFormat = DecimalFormat("$#,###")
+    return decimalFormat.format(currentTotal)
 }
 
 @Composable
