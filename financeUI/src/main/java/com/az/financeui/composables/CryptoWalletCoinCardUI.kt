@@ -46,40 +46,6 @@ enum class CryptoCardStyle {
 
 @Composable
 @Preview(device = Devices.PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
-fun CryptoWalletCoinCardPairRow() {
-    Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
-    ) {
-        CryptoWalletCoinCardUI(
-            style = CryptoCardStyle.Dark,
-            data = CryptoWalletCoinCardData(
-                name = "Bitcoin",
-                icon = R.drawable.ic_btc,
-                value = 3.689087f,
-                valueChange = -18,
-                currentTotal = 98160
-            )
-        )
-
-        CryptoWalletCoinCardUI(
-            style = CryptoCardStyle.Light,
-            data = CryptoWalletCoinCardData(
-                name = "Ethereum",
-                icon = R.drawable.ic_ethereum,
-                value = 94.48096f,
-                valueChange = 26,
-                currentTotal = 180480
-            )
-        )
-    }
-
-}
-
-@Composable
-@Preview(device = Devices.PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
 fun CryptoWalletCoinCardUI(
     style: CryptoCardStyle = CryptoCardStyle.Dark,
     data: CryptoWalletCoinCardData = CryptoWalletCoinCardData(
@@ -184,23 +150,21 @@ private fun ChangeIcon(valueChange: Int = -18) {
 }
 
 @Composable
-@Preview(device = Devices.PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
 fun CryptoCard(
     cardBackground: Color = Color.Black,
     bubbleColor: Color = Color(0xFFf3f3f3),
     backgroundColor: Color = Color.White,
-    //cardSize: Dp = 150.dp,
+    cardSize: Dp = 150.dp,
 ) {
-    val cardSize = 150
-    val radius = cardSize / 2f
+    val radius = cardSize.value / 2f
     Box {
         Card(
             modifier = Modifier
-                .size(cardSize.dp)
+                .size(cardSize)
                 .clip(RoundedCornerShape(15.dp)),
             colors = CardDefaults.cardColors(containerColor = cardBackground)
         ) {
-            Canvas(modifier = Modifier.size(cardSize.dp), onDraw = {
+            Canvas(modifier = Modifier.size(cardSize), onDraw = {
                 drawRect(
                     color = backgroundColor,
                     topLeft = Offset(x = size.width - radius + (radius * 0.2f), y = 12f),
@@ -209,13 +173,13 @@ fun CryptoCard(
 
                 drawRect(
                     color = backgroundColor,
-                    topLeft = Offset(x = cardSize * 1.3f, y = cardSize * -1f),
+                    topLeft = Offset(x = cardSize.value * 1.3f, y = cardSize.value * -1f),
                     size = size / 2f,
                 )
 
                 drawCircle(
                     color = backgroundColor,
-                    radius = cardSize / 1.5f,
+                    radius = cardSize.value / 1.5f,
                     center = Offset(
                         x = size.width - radius + (radius * 0.2f),
                         y = radius - (radius * 0.2f)
@@ -243,11 +207,11 @@ fun CryptoCard(
             })
         }
 
-        Canvas(modifier = Modifier.size(cardSize.dp), onDraw = {
+        Canvas(modifier = Modifier.size(cardSize), onDraw = {
 
             drawRect(
                 color = backgroundColor,
-                topLeft = Offset(x = size.width - (cardSize / 2f) - 7.5f, y = 0f),
+                topLeft = Offset(x = size.width - (cardSize.value / 2f) - 7.5f, y = 0f),
                 size = size / 5f
             )
 
