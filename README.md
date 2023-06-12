@@ -9,7 +9,7 @@ This project is a test mock application with an internal UI library for a Financ
 Feel free to explore each section for more details and examples on how to use the UI Composables in your project.
 
 ## Pie Row View
-![Screenshot 2023-06-11 at 16 52 01](https://github.com/zurche/finance-app-ui/assets/15671525/e6b6cc50-20f7-4bb1-9825-d678363e4c60)
+![Screenshot 2023-06-12 at 21 21 05](https://github.com/zurche/finance-app-ui/assets/15671525/c1dbe248-6b28-47df-bc8d-d55f0e9646c3)
 
 Hey there, ready to slice some pie? The Pie Row View Composable is designed to display two different categories of budgets with three key values:
 - Label: Describes the category
@@ -40,7 +40,7 @@ For more usage examples, refer to the [FinancePieRowDemoScreen](https://github.c
 
 
 ## Plain Pie
-![Screenshot 2023-06-11 at 16 57 20](https://github.com/zurche/finance-app-ui/assets/15671525/e45602a8-9db9-446b-a7dc-ed95786d3887)
+![Screenshot 2023-06-12 at 21 19 37](https://github.com/zurche/finance-app-ui/assets/15671525/a0151fa3-70e9-44e6-b7fa-4146a2276a1a)
 
 Why settle for a plain pie when you can have a scrumptious Plain Pie? The Plain Pie is one of the parts of the Pie Row View. It's used to display the state of the budget and can be used as a standalone Composable.
 
@@ -54,8 +54,6 @@ PlainPie(
     strokeSize = 40.0f
 )
 ```
-
-The Pie has a small spring animation when the values are loaded into it and the canvas is drawn.
 
 To find out some usage examples, refer to the [PlainPieDemoScreen](https://github.com/zurche/finance-app-ui/blob/main/app/src/main/java/com/az/financeapp/ui/screens/PlainPieDemoScreen.kt).
 
