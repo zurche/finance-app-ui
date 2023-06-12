@@ -1,6 +1,12 @@
 # finance-app-ui
 
-This project is a test mock application with an internal UI library for a Finance App.
+This project is a test mock application with an internal UI library for a Finance App. It provides various UI Composables that can be used to build the user interface of a finance-related application. The library includes the following sections:
+
+- [Pie Row View](#pie-row-view): A Composable for displaying two different categories of budgets with a pie chart and current amount.
+- [Plain Pie](#plain-pie): A standalone Composable for displaying the state of a budget with a pie chart.
+- [Crypto Card](#crypto-card): A Composable for displaying the current state of a cryptocurrency.
+
+Feel free to explore each section for more details and examples on how to use the UI Composables in your project.
 
 ## Pie Row View
 ![Screenshot 2023-06-11 at 16 52 01](https://github.com/zurche/finance-app-ui/assets/15671525/e6b6cc50-20f7-4bb1-9825-d678363e4c60)
