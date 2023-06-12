@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -126,7 +125,7 @@ fun PlainPie(
             currentAngle,
             animationSpec = spring(
                 dampingRatio = Spring.DampingRatioMediumBouncy,
-                stiffness = Spring.StiffnessLow
+                stiffness = Spring.StiffnessHigh
             )
         )
     }
@@ -140,29 +139,23 @@ fun PlainPie(
         val radius = canvasSize / 2
         val center = Offset(canvasSize / 2, canvasSize / 2)
 
-        // Draw full value pie
         drawCircle(
             color = fullColor,
             radius = radius,
-            center = center,
-            style = Stroke(strokeSize - 5)
+            center = center
         )
 
-        // Draw current value pie
-        val path = Path().apply {
-            moveTo(center.x, center.y - radius) // Move to the top point of the circle
-            arcTo(
-                rect = Rect(
-                    left = center.x - radius,
-                    top = center.y - radius,
-                    right = center.x + radius,
-                    bottom = center.y + radius
-                ),
-                startAngleDegrees = -110f, // Modify starting angle to -90 degrees (top of the circle)
-                sweepAngleDegrees = animatedProgress.value,
-                forceMoveTo = false
-            )
-        }
-        drawPath(path = path, color = keyColor, style = Stroke(strokeSize))
+        drawArc(
+            color = keyColor,
+            startAngle = 250f,
+            sweepAngle = animatedProgress.value,
+            useCenter = true
+        )
+
+        drawCircle(
+            color = Color.White,
+            radius = radius * 0.8f,
+            center = center
+        )
     }
 }
