@@ -1,5 +1,6 @@
 package com.az.financeui.composables
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -181,99 +182,114 @@ fun CardWithCornerShape(
     cardBackground: Color = Color.Black,
     cardSize: Int = 150
 ) {
-    Card(
-        modifier = Modifier
-            .size(cardSize.dp)
-            .clip(RoundedCornerShape(4.dp)),
-        colors = CardDefaults.cardColors(containerColor = cardBackground)
-    ) {
-        Spacer(
+    Box {
+
+        val radius = cardSize / 2f
+
+        Card(
             modifier = Modifier
-                .drawWithCache {
-                    onDrawBehind {
-                        val radius = cardSize / 2f
+                .size(cardSize.dp)
+                .clip(RoundedCornerShape(4.dp)),
+            colors = CardDefaults.cardColors(containerColor = cardBackground)
+        ) {
+            Spacer(
+                modifier = Modifier
+                    .drawWithCache {
+                        onDrawBehind {
 
-                        drawCircle(
-                            color = Color.White,
-                            radius = radius,
-                            center = Offset(x = size.width - radius, y = radius)
-                        )
-
-                        drawRect(
-                            color = Color.White,
-                            topLeft = Offset(x = size.width - cardSize, y = 0f),
-                            size = size / 5f
-                        )
-
-                        drawRect(
-                            color = Color.White,
-                            topLeft = Offset(
-                                x = size.width - (cardSize / 2f),
-                                y = (cardSize / 2.08f)
-                            ),
-                            size = size / 5f
-                        )
-
-                        drawRect(
-                            color = Color.White,
-                            topLeft = Offset(x = size.width - (cardSize / 2f), y = 0f),
-                            size = size / 5f
-                        )
-
-                        drawRect(
-                            color = Color.White,
-                            topLeft = Offset(x = size.width - (cardSize * 1.52f), y = 0f),
-                            size = size / 5f
-                        )
-
-                        drawArc(
-                            color = cardBackground,
-                            startAngle = 270f,
-                            sweepAngle = 90f,
-                            useCenter = true,
-                            topLeft = Offset(x = size.width - (cardSize * 2.13f), y = 0f),
-                            size = Size(
-                                width = cardSize.toFloat() + 20f,
-                                height = cardSize.toFloat() + 20f
+                            drawCircle(
+                                color = Color.White,
+                                radius = radius,
+                                center = Offset(x = size.width - radius, y = radius)
                             )
-                        )
 
-                        drawRect(
-                            color = Color.White,
-                            topLeft = Offset(
-                                x = size.width - (cardSize / 2f),
-                                y = cardSize.toFloat()
-                            ),
-                            size = size / 5f
-                        )
-
-                        drawArc(
-                            color = cardBackground,
-                            startAngle = 270f,
-                            sweepAngle = 90f,
-                            useCenter = true,
-                            topLeft = Offset(
-                                x = size.width - (cardSize * 1.19f),
-                                y = cardSize.toFloat() - 0.7f
-                            ),
-                            size = Size(
-                                width = cardSize.toFloat() + 30f,
-                                height = cardSize.toFloat() + 30f
+                            drawRect(
+                                color = Color.White,
+                                topLeft = Offset(x = size.width - cardSize, y = 0f),
+                                size = size / 5f
                             )
-                        )
 
-                        drawCircle(
-                            color = Color(0xFFf3f3f3),
-                            radius = radius * 0.8f,
-                            center = Offset(
-                                x = size.width - radius + (radius * 0.2f),
-                                y = radius - (radius * 0.2f)
+                            drawRect(
+                                color = Color.White,
+                                topLeft = Offset(
+                                    x = size.width - (cardSize / 2f),
+                                    y = (cardSize / 2.08f)
+                                ),
+                                size = size / 5f
                             )
-                        )
+
+                            drawRect(
+                                color = Color.White,
+                                topLeft = Offset(x = size.width - (cardSize / 2f), y = 0f),
+                                size = size / 5f
+                            )
+
+                            drawRect(
+                                color = Color.White,
+                                topLeft = Offset(x = size.width - (cardSize * 1.52f), y = 0f),
+                                size = size / 5f
+                            )
+
+                            drawArc(
+                                color = cardBackground,
+                                startAngle = 270f,
+                                sweepAngle = 90f,
+                                useCenter = true,
+                                topLeft = Offset(x = size.width - (cardSize * 2.13f), y = 0f),
+                                size = Size(
+                                    width = cardSize.toFloat() + 20f,
+                                    height = cardSize.toFloat() + 20f
+                                )
+                            )
+
+                            drawRect(
+                                color = Color.White,
+                                topLeft = Offset(
+                                    x = size.width - (cardSize / 2f),
+                                    y = cardSize.toFloat()
+                                ),
+                                size = size / 5f
+                            )
+
+                            drawArc(
+                                color = cardBackground,
+                                startAngle = 270f,
+                                sweepAngle = 90f,
+                                useCenter = true,
+                                topLeft = Offset(
+                                    x = size.width - (cardSize * 1.19f),
+                                    y = cardSize.toFloat() - 0.7f
+                                ),
+                                size = Size(
+                                    width = cardSize.toFloat() + 30f,
+                                    height = cardSize.toFloat() + 30f
+                                )
+                            )
+
+
+                        }
                     }
-                }
-                .fillMaxSize()
-        )
+                    .fillMaxSize()
+            )
 
+        }
+
+        Canvas(modifier = Modifier.size(cardSize.dp), onDraw = {
+            drawRect(
+                color = Color.White,
+                topLeft = Offset(x = size.width - (cardSize / 2f) - 7.5f, y = 0f),
+                size = size / 5f
+            )
+
+            drawCircle(
+                color = Color(0xFFf3f3f3),
+                radius = radius * 0.8f,
+                center = Offset(
+                    x = size.width - radius + (radius * 0.2f),
+                    y = radius - (radius * 0.2f)
+                )
+            )
+        })
     }
+
 }
