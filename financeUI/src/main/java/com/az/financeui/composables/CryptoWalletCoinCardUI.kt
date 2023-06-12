@@ -1,6 +1,7 @@
 package com.az.financeui.composables
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -42,6 +43,40 @@ enum class CryptoCardStyle {
 
 @Composable
 @Preview(device = Devices.PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
+fun CryptoWalletCoinCardPairRow() {
+    Row(
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth()
+    ) {
+        CryptoWalletCoinCardUI(
+            style = CryptoCardStyle.Dark,
+            data = CryptoWalletCoinCardData(
+                name = "Bitcoin",
+                icon = R.drawable.ic_btc,
+                value = 3.689087f,
+                valueChange = -18,
+                currentTotal = 98160
+            )
+        )
+
+        CryptoWalletCoinCardUI(
+            style = CryptoCardStyle.Light,
+            data = CryptoWalletCoinCardData(
+                name = "Ethereum",
+                icon = R.drawable.ic_ethereum,
+                value = 94.48096f,
+                valueChange = 26,
+                currentTotal = 180480
+            )
+        )
+    }
+
+}
+
+@Composable
+@Preview(device = Devices.PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
 fun CryptoWalletCoinCardUI(
     style: CryptoCardStyle = CryptoCardStyle.Dark,
     data: CryptoWalletCoinCardData = CryptoWalletCoinCardData(
@@ -62,81 +97,79 @@ fun CryptoWalletCoinCardUI(
         CryptoCardStyle.Light -> Color(0xFF000000)
     }
 
-    CardWithCornerShape(cardBackground)
-
-    Column(
-        verticalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier
-            .padding(24.dp)
-            .size(300.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(top = 10.dp, end = 13.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row {
-                Text(
-                    text = "${data.valueChange}%",
-                    color = textColor,
-                    style = MaterialTheme.typography.titleLarge
-                )
-
-                ChangeIcon(data, textColor)
-            }
-
-            Icon(
-                painter = painterResource(id = data.icon),
-                contentDescription = "Card Icon",
-                tint = Color.Black,
-                modifier = Modifier.size(40.dp)
-            )
-        }
+    Box {
+        CardWithCornerShape(cardBackground)
 
         Column(
-            verticalArrangement = Arrangement.SpaceAround,
-            modifier = Modifier.padding(bottom = 8.dp)
+            verticalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.size(150.dp)
         ) {
-            Text(
-                text = data.name,
-                color = textColor,
-                style = MaterialTheme.typography.headlineSmall
-            )
-            Text(
-                text = "${data.value}",
-                color = textColor,
-                style = MaterialTheme.typography.headlineMedium
-            )
-            Text(
-                text = "$${data.currentTotal}",
-                color = textColor
-            )
+            Row(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row {
+                    Text(
+                        text = "${data.valueChange}%",
+                        color = textColor,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+
+                    ChangeIcon(data.valueChange)
+                }
+
+                Icon(
+                    painter = painterResource(id = data.icon),
+                    contentDescription = "Card Icon",
+                    tint = Color.Black,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+
+            Column(
+                verticalArrangement = Arrangement.SpaceAround,
+                modifier = Modifier.padding(12.dp)
+            ) {
+                Text(
+                    text = data.name,
+                    color = textColor,
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = "${data.value}",
+                    color = textColor,
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = "$${data.currentTotal}",
+                    color = textColor
+                )
+            }
         }
     }
+
 }
 
 @Composable
-private fun ChangeIcon(
-    data: CryptoWalletCoinCardData,
-    textColor: Color
-) {
+private fun ChangeIcon(valueChange: Int = -18) {
     var iconModifier: Modifier = Modifier
     val tint: Color
     val contentDescription: String
 
-    if (data.valueChange > 0) {
-        tint = textColor
+    if (valueChange > 0) {
+        tint = Color(0xFFFFFFFF)
+        iconModifier = Modifier.rotate(180f)
         contentDescription = "Arrow Up"
     } else {
         tint = Color(0xFFa97d72)
-        iconModifier = Modifier.rotate(180f)
         contentDescription = "Arrow Down"
     }
 
     Icon(
-        modifier = iconModifier,
-        painter = painterResource(id = R.drawable.ic_arrow_up),
+        modifier = iconModifier.size(17.dp),
+        painter = painterResource(id = R.drawable.ic_arrow_bottom_left),
         contentDescription = contentDescription,
         tint = tint
     )
@@ -145,13 +178,12 @@ private fun ChangeIcon(
 @Composable
 fun CardWithCornerShape(
     cardBackground: Color = Color.Black,
-    cardSize: Int = 350
+    cardSize: Int = 150
 ) {
     Card(
         modifier = Modifier
             .size(cardSize.dp)
-            .clip(RoundedCornerShape(2.dp))
-            .padding(8.dp),
+            .clip(RoundedCornerShape(4.dp)),
         colors = CardDefaults.cardColors(containerColor = cardBackground)
     ) {
         Spacer(
@@ -198,7 +230,7 @@ fun CardWithCornerShape(
                             startAngle = 270f,
                             sweepAngle = 90f,
                             useCenter = true,
-                            topLeft = Offset(x = size.width - (cardSize * 2.058f), y = 0f),
+                            topLeft = Offset(x = size.width - (cardSize * 2.13f), y = 0f),
                             size = Size(
                                 width = cardSize.toFloat() + 20f,
                                 height = cardSize.toFloat() + 20f
@@ -220,12 +252,12 @@ fun CardWithCornerShape(
                             sweepAngle = 90f,
                             useCenter = true,
                             topLeft = Offset(
-                                x = size.width - (cardSize * 1.058f),
-                                y = cardSize.toFloat()
+                                x = size.width - (cardSize * 1.19f),
+                                y = cardSize.toFloat() - 0.7f
                             ),
                             size = Size(
-                                width = cardSize.toFloat() + 20f,
-                                height = cardSize.toFloat() + 20f
+                                width = cardSize.toFloat() + 30f,
+                                height = cardSize.toFloat() + 30f
                             )
                         )
 
