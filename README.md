@@ -63,9 +63,9 @@ To find out some usage examples, refer to the [PlainPieDemoScreen](https://githu
 
 Are you ready to dive into the world of crypto? The Crypto Card is a Composable that displays the current state of a cryptocurrency.
 
-To initialize it, a `CryptoWalletCoinCardData` class needs to be passed into it. The class has the following properties:
+To initialize it, a `CryptoCardData` class needs to be passed into it. The class has the following properties:
 ```kotlin
-data class CryptoWalletCoinCardData(
+data class CryptoCardData(
     val name: String,
     val value: Float,
     val valueChange: Int,
@@ -78,11 +78,9 @@ On top of this, it supports Light and Dark styling. This needs to be passed as a
 
 Here's an example of initialization:
 ```kotlin
-CryptoWalletCoinCardUI(
+CryptoCard(
     style = CryptoCardStyle.Dark,
-    data =
-
- CryptoWalletCoinCardData(
+    data = CryptoWalletCoinCardData(
         name = "Bitcoin",
         icon = R.drawable.ic_btc,
         value = 3.689087f,

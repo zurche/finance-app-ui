@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,10 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -32,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.az.financeui.R
 import java.text.DecimalFormat
 
-data class CryptoWalletCoinCardData(
+data class CryptoCardData(
     val name: String,
     val value: Float,
     val valueChange: Int,
@@ -44,11 +40,17 @@ enum class CryptoCardStyle {
     Dark, Light
 }
 
+/**
+ * A composable function that represents a crypto card.
+ *
+ * @param style The style of the crypto card. Default is [CryptoCardStyle.Dark].
+ * @param data The [CryptoCardData] data for the crypto card.
+ */
 @Composable
 @Preview(device = Devices.PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
-fun CryptoWalletCoinCardUI(
+fun CryptoCard(
     style: CryptoCardStyle = CryptoCardStyle.Dark,
-    data: CryptoWalletCoinCardData = CryptoWalletCoinCardData(
+    data: CryptoCardData = CryptoCardData(
         name = "Bitcoin",
         icon = R.drawable.ic_btc,
         value = 3.689087f,
@@ -67,7 +69,7 @@ fun CryptoWalletCoinCardUI(
     }
 
     Box {
-        CryptoCard(cardBackground)
+        CryptoCardBackground(cardBackground)
 
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -150,7 +152,7 @@ private fun ChangeIcon(valueChange: Int = -18) {
 }
 
 @Composable
-fun CryptoCard(
+fun CryptoCardBackground(
     cardBackground: Color = Color.Black,
     bubbleColor: Color = Color(0xFFf3f3f3),
     backgroundColor: Color = Color.White,
