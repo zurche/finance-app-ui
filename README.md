@@ -59,6 +59,8 @@ To find out some usage examples, refer to the [PlainPieDemoScreen](https://githu
 
 
 ## Crypto Card
+Design by [Roman Lieliushkin](https://www.linkedin.com/safety/go?url=https%3A%2F%2Fwww.behance.net%2Fozmoweb&trk=flagship-messaging-web&messageThreadUrn=urn%3Ali%3AmessagingThread%3A2-NWY4ZGU0NGEtOGJhMC00MmFiLWE2NDctOTlmOTQ3ZDRmOGIxXzAxMg%3D%3D&lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging_conversation_detail%3BKJxf2ds6QGWE0fko6cjsgw%3D%3D)
+
 ![Screenshot 2023-06-12 at 21 06 30](https://github.com/zurche/finance-app-ui/assets/15671525/e30f1c50-672b-4fb0-a07e-7e8aab5978bf)
 
 Are you ready to dive into the world of crypto? The Crypto Card is a Composable that displays the current state of a cryptocurrency.
