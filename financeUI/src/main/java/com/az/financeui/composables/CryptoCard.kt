@@ -1,5 +1,9 @@
 package com.az.financeui.composables
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,6 +19,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
@@ -26,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.az.financeui.R
+import kotlinx.coroutines.delay
 import java.text.DecimalFormat
 
 data class CryptoCardData(
@@ -71,54 +81,75 @@ fun CryptoCard(
     Box {
         CryptoCardBackground(cardBackground)
 
-        Column(
-            verticalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.size(150.dp)
+        var visible by remember { mutableStateOf(false) }
+
+        LaunchedEffect(Unit) {
+            delay(300)
+            visible = true
+        }
+
+        AnimatedVisibility(
+            visible = visible,
+            enter = fadeIn() + slideInVertically { fullHeight -> fullHeight },
         ) {
-            Row(
-                modifier = Modifier
-                    .padding(12.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row {
-                    Text(
-                        text = "${data.valueChange}%",
-                        color = textColor,
-                        style = MaterialTheme.typography.labelMedium
-                    )
+            CryptoCardContent(data, textColor)
+        }
 
-                    ChangeIcon(data.valueChange)
-                }
+    }
+}
 
-                Icon(
-                    painter = painterResource(id = data.icon),
-                    contentDescription = "Card Icon",
-                    tint = Color.Black,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-
-            Column(
-                verticalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.padding(12.dp)
-            ) {
+@Composable
+private fun CryptoCardContent(
+    data: CryptoCardData,
+    textColor: Color
+) {
+    Column(
+        verticalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.size(150.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(12.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row {
                 Text(
-                    text = data.name,
+                    text = "${data.valueChange}%",
                     color = textColor,
                     style = MaterialTheme.typography.labelMedium
                 )
-                Text(
-                    text = "${data.value}",
-                    color = textColor,
-                    style = MaterialTheme.typography.headlineSmall
-                )
-                Text(
-                    text = formatCurrentTotal(data.currentTotal),
-                    color = textColor,
-                    style = MaterialTheme.typography.bodySmall
-                )
+
+                ChangeIcon(data.valueChange)
             }
+
+            Icon(
+                painter = painterResource(id = data.icon),
+                contentDescription = "Card Icon",
+                tint = Color.Black,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+
+        Column(
+            verticalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier.padding(12.dp)
+        ) {
+            Text(
+                text = data.name,
+                color = textColor,
+                style = MaterialTheme.typography.labelMedium
+            )
+            Text(
+                text = "${data.value}",
+                color = textColor,
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Text(
+                text = formatCurrentTotal(data.currentTotal),
+                color = textColor,
+                style = MaterialTheme.typography.bodySmall
+            )
         }
     }
 }
