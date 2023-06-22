@@ -1,6 +1,11 @@
 package com.az.financeui.composables
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideInVertically
@@ -182,6 +187,11 @@ private fun ChangeIcon(valueChange: Int = -18) {
     )
 }
 
+private enum class CircleState {
+    MidSize,
+    FullSize
+}
+
 @Composable
 fun CryptoCardBackground(
     cardBackground: Color = Color.Black,
@@ -240,6 +250,29 @@ fun CryptoCardBackground(
             })
         }
 
+        var circleState by remember { mutableStateOf(CircleState.MidSize) }
+
+        val transition = updateTransition(targetState = circleState, label = "")
+
+        val circleRadius by transition.animateFloat(label = "",
+            transitionSpec = {
+                if (targetState == CircleState.FullSize) {
+                    spring(Spring.DampingRatioHighBouncy, Spring.StiffnessMedium)
+                } else {
+                    spring(Spring.DampingRatioNoBouncy, Spring.StiffnessVeryLow)
+                }
+            }) { state ->
+            when (state) {
+                CircleState.MidSize -> radius * 0.4f
+                CircleState.FullSize -> radius * 0.8f
+            }
+        }
+
+        LaunchedEffect(Unit) {
+            delay(500)
+            circleState = CircleState.FullSize
+        }
+
         Canvas(modifier = Modifier.size(cardSize), onDraw = {
 
             drawRect(
@@ -250,7 +283,7 @@ fun CryptoCardBackground(
 
             drawCircle(
                 color = bubbleColor,
-                radius = radius * 0.8f,
+                radius = circleRadius,
                 center = Offset(
                     x = size.width - radius + (radius * 0.2f),
                     y = radius - (radius * 0.2f)
