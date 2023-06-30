@@ -40,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.az.financeui.R
+import com.az.financeui.theme.CryptoLigthGray
 import kotlinx.coroutines.delay
 import java.text.DecimalFormat
 
@@ -195,7 +196,7 @@ private enum class CircleState {
 @Composable
 fun CryptoCardBackground(
     cardBackground: Color = Color.Black,
-    bubbleColor: Color = Color(0xFFf3f3f3),
+    bubbleColor: Color = CryptoLigthGray,
     backgroundColor: Color = Color.White,
     cardSize: Dp = 150.dp,
 ) {
