@@ -118,7 +118,7 @@ fun ValueView(currentValue: Float, total: Float) {
 }
 
 @Composable
-//@Preview
+@Preview
 fun PerformanceChart(
     lastDayChange: List<Float> = mockAssetInfo.lastDayChange
 ) {
@@ -132,7 +132,7 @@ fun PerformanceChart(
             .height(70.dp)
             .padding(5.dp), onDraw = {
 
-            var lastLineEnd = Offset(0f, 140f)
+            var lastLineEnd = Offset(0f, size.height)
             var pointDiff: Float
             val lineColor =
                 if (lastDayChange.last() > lastDayChange.first()) LightOlive else LightCarmin
