@@ -2,12 +2,10 @@ package com.az.financeui.composables
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateDp
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideIn
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.az.financeui.R
+import com.az.financeui.theme.CryptoLightGray
 import kotlinx.coroutines.delay
 import java.text.DecimalFormat
 
@@ -195,7 +194,7 @@ private enum class CircleState {
 @Composable
 fun CryptoCardBackground(
     cardBackground: Color = Color.Black,
-    bubbleColor: Color = Color(0xFFf3f3f3),
+    bubbleColor: Color = CryptoLightGray,
     backgroundColor: Color = Color.White,
     cardSize: Dp = 150.dp,
 ) {
