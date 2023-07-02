@@ -23,6 +23,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,28 +42,28 @@ data class AssetInfo(
 )
 
 private val mockAssetInfo = AssetInfo(
-    R.drawable.apple,
-    "Apple Inc.",
-    "AAPL",
+    R.drawable.amd_icon,
+    "Advanced Micro Devices, Inc.",
+    "AMD",
     listOf(
-        185.293f,
-        186.719f,
-        188.135f,
-        189.456f,
-        184.917f,
-        188.778f,
-        186.643f,
-        189.942f,
-        185.671f,
-        187.213f,
-        185.921f,
-        187.882f,
-        186.475f,
-        184.726f,
-        185.509f
+        113.518f,
+        113.799f,
+        113.333f,
+        113.235f,
+        114.099f,
+        113.506f,
+        113.985f,
+        114.212f,
+        114.125f,
+        113.531f,
+        114.228f,
+        113.284f,
+        114.031f,
+        113.493f,
+        113.112f
     ),
-    187.00023f,
-    1870.3f
+    113.02211f,
+    1356.26f
 )
 
 @Composable
@@ -127,7 +128,7 @@ fun PerformanceChart(
         val offsetIncrement = 24f
 
         Canvas(modifier = Modifier
-            .width(150.dp)
+            .width(140.dp)
             .height(70.dp)
             .padding(5.dp), onDraw = {
 
@@ -162,13 +163,16 @@ fun PerformanceChart(
 private fun TickerName(name: String = "Apple Inc.", tickerName: String = "AAPL") {
     Column(
         modifier = Modifier
-            .padding(start = 10.dp)
+            .padding(start = 10.dp, end = 10.dp)
+            .width(80.dp)
     ) {
         Text(
             text = name,
             style = MaterialTheme.typography.labelMedium,
             fontWeight = FontWeight.Bold,
-            color = Color.Black
+            color = Color.Black,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2
         )
         Text(text = tickerName, style = MaterialTheme.typography.labelSmall, color = Color.Gray)
     }
