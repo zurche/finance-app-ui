@@ -45,23 +45,21 @@ private val mockAssetInfo = AssetInfo(
     "Apple Inc.",
     "AAPL",
     listOf(
-        180.06f,
-        181.82f,
-        182.39f,
-        183.83f,
-        184.97f,
-        185.02f,
-        186.07f,
-        187.03f,
-        188.06f,
-        189.82f,
-        190.39f,
-        191.83f,
-        192.97f,
-        193.02f,
-        194.07f,
-        195.03f,
-        194.07f
+        185.293f,
+        186.719f,
+        188.135f,
+        189.456f,
+        184.917f,
+        188.778f,
+        186.643f,
+        189.942f,
+        185.671f,
+        187.213f,
+        185.921f,
+        187.882f,
+        186.475f,
+        184.726f,
+        185.509f
     ),
     187.00023f,
     1870.3f
@@ -82,7 +80,9 @@ fun AssetCard(
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(8.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
         ) {
             AssetIcon(assetInfo.iconDrawable)
 
@@ -131,7 +131,7 @@ fun PerformanceChart(
             .height(70.dp)
             .padding(5.dp), onDraw = {
 
-            var lastLineEnd = Offset(0f, 170f)
+            var lastLineEnd = Offset(0f, 140f)
             var pointDiff: Float
             val lineColor =
                 if (lastDayChange.last() > lastDayChange.first()) LightOlive else LightCarmin
