@@ -1,8 +1,11 @@
 package com.az.financeapp.ui.screens
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.az.financeui.R
 import com.az.financeui.composables.AssetCard
 import com.az.financeui.composables.AssetInfo
@@ -27,8 +30,7 @@ private val demoAssetList: List<AssetInfo> = listOf(
             187.673f,
             189.579f,
             185.284f,
-            184.975f,
-            188.876f
+            184.975f
         ),
         187.00023f,
         1870.3f
@@ -51,8 +53,7 @@ private val demoAssetList: List<AssetInfo> = listOf(
             114.228f,
             113.284f,
             114.031f,
-            113.493f,
-            113.112f
+            113.493f
         ),
         113.02211f,
         1356.26f
@@ -75,8 +76,7 @@ private val demoAssetList: List<AssetInfo> = listOf(
             409.381f,
             405.093f,
             404.174f,
-            405.567f,
-            408.491f
+            405.567f
         ),
         403.00125f,
         3627.011f
@@ -86,7 +86,7 @@ private val demoAssetList: List<AssetInfo> = listOf(
 @Composable
 @Preview
 fun AssetCardListDemoScreen() {
-    LazyColumn(content = {
+    LazyColumn(modifier = Modifier.padding(10.dp), content = {
         items(demoAssetList.size) { index ->
             AssetCard(assetInfo = demoAssetList[index])
         }

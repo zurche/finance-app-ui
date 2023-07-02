@@ -128,7 +128,7 @@ fun PerformanceChart(
         val offsetIncrement = 24f
 
         Canvas(modifier = Modifier
-            .width(140.dp)
+            .width(120.dp)
             .height(70.dp)
             .padding(5.dp), onDraw = {
 
@@ -163,7 +163,7 @@ fun PerformanceChart(
 private fun TickerName(name: String = "Apple Inc.", tickerName: String = "AAPL") {
     Column(
         modifier = Modifier
-            .padding(start = 10.dp, end = 10.dp)
+            .padding(start = 10.dp, end = 5.dp)
             .width(80.dp)
     ) {
         Text(
