@@ -94,3 +94,27 @@ CryptoCard(
 ![Screenshot 2023-06-12 at 21 11 41](https://github.com/zurche/finance-app-ui/assets/15671525/ca8c26bd-b854-42a9-b18e-88f78d441907)
 
 To find out some usage examples, refer to the [CryptoCardDemoScreen](https://github.com/zurche/finance-app-ui/blob/main/app/src/main/java/com/az/financeapp/ui/screens/CryptoWalletHomeScreen.kt).
+
+
+## Asset Card
+Design by [Roman Lieliushkin](https://www.linkedin.com/safety/go?url=https%3A%2F%2Fwww.behance.net%2Fozmoweb&trk=flagship-messaging-web&messageThreadUrn=urn%3Ali%3AmessagingThread%3A2-NWY4ZGU0NGEtOGJhMC00MmFiLWE2NDctOTlmOTQ3ZDRmOGIxXzAxMg%3D%3D&lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging_conversation_detail%3BKJxf2ds6QGWE0fko6cjsgw%3D%3D)
+
+The FinanceUI Asset Card Composable is a reusable component for displaying information about a specific asset or stock in a finance application. It includes visual representations of the asset's performance, such as a performance chart, as well as the asset's current value and total value.
+
+![Asset Card Preview](preview.png)
+
+### Usage
+To use is simply bring the `AssetCard` composable into your project and pass in the required parameters. The `AssetCard` composable requires an `AssetCardData` object to be passed in. The `AssetCardData` class has the following properties:
+
+```kotlin
+data class AssetInfo(
+    val iconDrawable: Int,
+    val name: String,
+    val tickerName: String,
+    val lastDayChange: List<Float>,
+    val currentValue: Float,
+    val total: Float,
+)
+```
+
+Checkout the [AssetCardDemoScreen]() for an example of how to use the `AssetCard` composable.
