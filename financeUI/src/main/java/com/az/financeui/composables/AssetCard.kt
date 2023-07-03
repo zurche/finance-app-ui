@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,15 +18,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.az.financeui.R
 import com.az.financeui.theme.CryptoWhite
@@ -89,7 +93,7 @@ fun AssetCard(
 
             TickerName(assetInfo.name, assetInfo.tickerName)
 
-            PerformanceChart(assetInfo.lastDayChange)
+            PerformanceChart(lastDayChange = assetInfo.lastDayChange, maxHeight = 100.dp, maxWidth = 100.dp)
 
             ValueView(assetInfo.currentValue, assetInfo.total)
         }
@@ -118,8 +122,8 @@ fun ValueView(currentValue: Float, total: Float) {
 }
 
 @Composable
-@Preview
-fun PerformanceChart(
+//@Preview
+fun PerformanceChartv1(
     lastDayChange: List<Float> = mockAssetInfo.lastDayChange
 ) {
 
@@ -156,6 +160,69 @@ fun PerformanceChart(
         })
     }
 
+}
+
+@Composable
+@Preview(backgroundColor = 0xFFFFFFFF, showBackground = true)
+fun PerformanceChart(
+    lastDayChange: List<Float> = listOf(102f, 322f, 0f, 150f, 130f),
+    maxWidth: Dp = 130.dp,
+    maxHeight: Dp = 70.dp
+) {
+
+    val augmenterModifierForList = getAugmenterModifierForValue(lastDayChange.max())
+
+    val zippedList = lastDayChange.zipWithNext()
+
+    val lineColor =
+        if (lastDayChange.last() > lastDayChange.first()) LightOlive else LightCarmin
+
+    Row(
+        modifier = Modifier
+            .height(maxHeight)
+            .width(maxWidth)
+    ) {
+        zippedList.forEach {
+            Dot(it, lineColor, maxHeight, augmenterModifierForList)
+        }
+    }
+
+}
+
+private fun getAugmenterModifierForValue(value: Float): Int =
+    when (value) {
+        in 0f..9f -> 9
+        in 9f..99f -> 9_0
+        in 99f..999f -> 9_00
+        in 999f..9_999f -> 9_000
+        in 9_999f..99_999f -> 90_000
+        else -> 900_000
+    }
+
+@Composable
+fun RowScope.Dot(
+    value: Pair<Float, Float> = Pair(10f, 30f),
+    color: Color = Color.Red,
+    maxHeight: Dp = 500.dp,
+    graphAugmenterValue: Int = 90
+) {
+    val firstItemHeight =
+        remember(value.first) { value.first * maxHeight.value / graphAugmenterValue }
+    val secondItemHeight =
+        remember(value.second) { value.second * maxHeight.value / graphAugmenterValue }
+
+    Canvas(modifier = Modifier.weight(1f), onDraw = {
+        val firstValueOffset = Offset(x = 0f, y = maxHeight.value - firstItemHeight)
+        val secondValueOffset = Offset(x = size.width, y = maxHeight.value - secondItemHeight)
+
+        drawLine(
+            color = color,
+            start = firstValueOffset,
+            end = secondValueOffset,
+            strokeWidth = 1.dp.toPx(),
+            cap = StrokeCap.Round
+        )
+    })
 }
 
 @Composable
