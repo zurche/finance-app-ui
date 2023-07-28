@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -93,7 +94,7 @@ fun AssetCard(
 
             TickerName(assetInfo.name, assetInfo.tickerName)
 
-            PerformanceChart(lastDayChange = assetInfo.lastDayChange, maxHeight = 100.dp, maxWidth = 100.dp)
+            PerformanceChartV2(Modifier.size(100.dp), assetInfo.lastDayChange)
 
             ValueView(assetInfo.currentValue, assetInfo.total)
         }
@@ -118,6 +119,25 @@ fun ValueView(currentValue: Float, total: Float) {
             style = MaterialTheme.typography.labelSmall,
             color = Color.Gray
         )
+    }
+}
+
+@Composable
+@Preview(heightDp = 300, widthDp = 300, backgroundColor = 0xFFFFFFFF, showBackground = true)
+fun PerformanceChartV2(modifier: Modifier = Modifier, list: List<Float> = mockAssetInfo.lastDayChange) {
+    Row(modifier = modifier) {
+        var lastY = 0f
+        val max = list.max()
+        val min = list.min()
+        for (value in list) {
+            val yPercentage = (value - min) / (max - min)
+            Canvas(modifier = Modifier.fillMaxHeight().weight(1f), onDraw = {
+                if (lastY == 0f) { lastY = size.height }
+                val currentPoint = Offset(x = size.width, y = size.height.times(1 - yPercentage))
+                drawLine(color = Color.Red, start = Offset(x = 0f, y = lastY), end = currentPoint)
+                lastY = currentPoint.y
+            })
+        }
     }
 }
 
