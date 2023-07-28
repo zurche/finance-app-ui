@@ -119,7 +119,7 @@ fun ValueView(currentValue: Float, total: Float) {
 
 @Composable
 @Preview(heightDp = 300, widthDp = 300, backgroundColor = 0xFFFFFFFF, showBackground = true)
-fun PerformanceChart(modifier: Modifier = Modifier, list: List<Float> = mockAssetInfo.lastDayChange) {
+fun PerformanceChart(modifier: Modifier = Modifier, list: List<Float> = listOf(10f, 3f, 2f, 1f)) {
     Row(modifier = modifier) {
         var lastY = 0f
         val max = list.max()
@@ -128,12 +128,20 @@ fun PerformanceChart(modifier: Modifier = Modifier, list: List<Float> = mockAsse
             if (list.last() > list.first()) LightOlive else LightCarmin
         for (value in list) {
             val yPercentage = (value - min) / (max - min)
-            Canvas(modifier = Modifier.fillMaxHeight().weight(1f), onDraw = {
-                if (lastY == 0f) { lastY = size.height }
-                val currentPoint = Offset(x = size.width, y = size.height.times(1 - yPercentage))
-                drawLine(color = lineColor, start = Offset(x = 0f, y = lastY), end = currentPoint)
-                lastY = currentPoint.y
-            })
+            Canvas(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(1f),
+                onDraw = {
+                    val currentPoint =
+                        Offset(x = size.width, y = size.height.times(1 - yPercentage))
+                    drawLine(
+                        color = lineColor,
+                        start = Offset(x = 0f, y = lastY),
+                        end = currentPoint
+                    )
+                    lastY = currentPoint.y
+                })
         }
     }
 }
