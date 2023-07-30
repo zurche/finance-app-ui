@@ -14,7 +14,7 @@ Design by [Roman Lieliushkin](https://www.linkedin.com/safety/go?url=https%3A%2F
 
 The FinanceUI Asset Card Composable is a reusable component for displaying information about a specific asset or stock in a finance application. It includes visual representations of the asset's performance, such as a performance chart, as well as the asset's current value and total value.
 
-![Screenshot 2023-07-02 at 18 19 58](https://github.com/zurche/finance-app-ui/assets/15671525/6f1e7881-5dd4-4a0a-8861-273d2696d7c7)
+![Screenshot 2023-07-30 at 11 31 54](https://github.com/zurche/finance-app-ui/assets/15671525/5018363f-f9bc-47f2-93e1-495a81946db3)
 
 ### Usage
 To use is simply bring the `AssetCard` composable into your project and pass in the required parameters. The `AssetCard` composable requires an `AssetCardData` object to be passed in. The `AssetCardData` class has the following properties:
@@ -32,8 +32,7 @@ data class AssetInfo(
 
 Checkout the [AssetCardDemoScreen](https://github.com/zurche/finance-app-ui/blob/main/app/src/main/java/com/az/financeapp/ui/screens/AssetCardListScreen.kt) for an example of how to use the `AssetCard` composable.
 
-![Screenshot 2023-07-02 at 18 23 31](https://github.com/zurche/finance-app-ui/assets/15671525/d7738395-4874-40e4-8e9f-396d1f03542a)
-
+![Screenshot 2023-07-30 at 11 31 47](https://github.com/zurche/finance-app-ui/assets/15671525/1882d6a5-990d-44fe-9493-1712ed86a825)
 
 ## Pie Row View
 ![Screenshot 2023-06-12 at 21 21 05](https://github.com/zurche/finance-app-ui/assets/15671525/c1dbe248-6b28-47df-bc8d-d55f0e9646c3)
