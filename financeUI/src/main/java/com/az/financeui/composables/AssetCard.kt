@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -89,7 +90,7 @@ fun AssetCard(
 
             TickerName(assetInfo.name, assetInfo.tickerName)
 
-            PerformanceChart(Modifier.size(100.dp), assetInfo.lastDayChange)
+            PerformanceChart(Modifier.height(50.dp).width(100.dp), assetInfo.lastDayChange)
 
             ValueView(assetInfo.currentValue, assetInfo.total)
         }
@@ -141,19 +142,22 @@ fun PerformanceChart(modifier: Modifier = Modifier, list: List<Float> = listOf(1
                     .weight(1f),
                 onDraw = {
                     val fromPoint = Offset(x = 0f, y = size.height.times(1 - fromValuePercentage))
-                    val toPoint = Offset(x = size.width, y = size.height.times(1 - toValuePercentage))
+                    val toPoint =
+                        Offset(x = size.width, y = size.height.times(1 - toValuePercentage))
 
                     drawLine(
                         color = lineColor,
                         start = fromPoint,
-                        end = toPoint
+                        end = toPoint,
+                        strokeWidth = 3f
                     )
                 })
         }
     }
 }
 
-private fun getValuePercentageForRange(value: Float, max: Float, min: Float) = (value - min) / (max - min)
+private fun getValuePercentageForRange(value: Float, max: Float, min: Float) =
+    (value - min) / (max - min)
 
 @Composable
 //@Preview
