@@ -83,7 +83,7 @@ fun AssetCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .padding(8.dp)
+                .padding(15.dp)
                 .fillMaxWidth()
         ) {
             AssetIcon(assetInfo.iconDrawable)
