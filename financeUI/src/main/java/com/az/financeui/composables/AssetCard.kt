@@ -117,34 +117,43 @@ fun ValueView(currentValue: Float, total: Float) {
     }
 }
 
+//TODO: first line starts always from 0f. This is misleading in the chart. Need to address by omi
 @Composable
 @Preview(heightDp = 300, widthDp = 300, backgroundColor = 0xFFFFFFFF, showBackground = true)
-fun PerformanceChart(modifier: Modifier = Modifier, list: List<Float> = listOf(10f, 3f, 2f, 1f)) {
+fun PerformanceChart(modifier: Modifier = Modifier, list: List<Float> = listOf(10f, 20f, 3f, 1f)) {
+    val zipList: List<Pair<Float, Float>> = list.zipWithNext()
+
     Row(modifier = modifier) {
-        var lastY = 0f
         val max = list.max()
         val min = list.min()
+
         val lineColor =
             if (list.last() > list.first()) LightOlive else LightCarmin
-        for (value in list) {
-            val yPercentage = (value - min) / (max - min)
+
+        for (pair in zipList) {
+
+            val fromValuePercentage = getValuePercentageForRange(pair.first, max, min)
+            val toValuePercentage = getValuePercentageForRange(pair.second, max, min)
+
             Canvas(
                 modifier = Modifier
                     .fillMaxHeight()
                     .weight(1f),
                 onDraw = {
-                    val currentPoint =
-                        Offset(x = size.width, y = size.height.times(1 - yPercentage))
+                    val fromPoint = Offset(x = 0f, y = size.height.times(1 - fromValuePercentage))
+                    val toPoint = Offset(x = size.width, y = size.height.times(1 - toValuePercentage))
+
                     drawLine(
                         color = lineColor,
-                        start = Offset(x = 0f, y = lastY),
-                        end = currentPoint
+                        start = fromPoint,
+                        end = toPoint
                     )
-                    lastY = currentPoint.y
                 })
         }
     }
 }
+
+private fun getValuePercentageForRange(value: Float, max: Float, min: Float) = (value - min) / (max - min)
 
 @Composable
 //@Preview
