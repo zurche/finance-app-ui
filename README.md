@@ -2,14 +2,14 @@
 
 This project is a test mock application with an internal UI library for a Finance App. It provides various UI Composables that can be used to build the user interface of a finance-related application. The library includes the following sections:
 
-- [Asset Card](#asset-card): A Composable to display the status of an Asset of your wallet
+- [Asset Performance Card](#asset-performance-card): A Composable to display the status of an Asset of your wallet
 - [Pie Row View](#pie-row-view): A Composable for displaying two different categories of budgets with a pie chart and current amount.
 - [Plain Pie](#plain-pie): A standalone Composable for displaying the state of a budget with a pie chart.
 - [Crypto Card](#crypto-card): A Composable for displaying the current state of a cryptocurrency.
 
 Feel free to explore each section for more details and examples on how to use the UI Composables in your project.
 
-## Asset Card
+## Asset Performance Card
 Design by [Roman Lieliushkin](https://www.linkedin.com/safety/go?url=https%3A%2F%2Fwww.behance.net%2Fozmoweb&trk=flagship-messaging-web&messageThreadUrn=urn%3Ali%3AmessagingThread%3A2-NWY4ZGU0NGEtOGJhMC00MmFiLWE2NDctOTlmOTQ3ZDRmOGIxXzAxMg%3D%3D&lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging_conversation_detail%3BKJxf2ds6QGWE0fko6cjsgw%3D%3D)
 
 The FinanceUI Asset Card Composable is a reusable component for displaying information about a specific asset or stock in a finance application. It includes visual representations of the asset's performance, such as a performance chart, as well as the asset's current value and total value.
@@ -17,7 +17,7 @@ The FinanceUI Asset Card Composable is a reusable component for displaying infor
 ![Screenshot 2023-07-30 at 11 31 54](https://github.com/zurche/finance-app-ui/assets/15671525/5018363f-f9bc-47f2-93e1-495a81946db3)
 
 ### Usage
-To use is simply bring the `AssetCard` composable into your project and pass in the required parameters. The `AssetCard` composable requires an `AssetCardData` object to be passed in. The `AssetCardData` class has the following properties:
+To use is simply bring the `AssetPerformanceCard` composable into your project and pass in the required parameters. The `AssetCard` composable requires an `AssetCardData` object to be passed in. The `AssetCardData` class has the following properties:
 
 ```kotlin
 data class AssetInfo(
