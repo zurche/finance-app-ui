@@ -1,6 +1,7 @@
 package com.az.financeapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,15 @@ import com.az.financeui.composables.CryptoCardStyle
 import com.az.financeui.composables.CryptoCardData
 import com.az.financeui.composables.CryptoCard
 
+@Composable
+@Preview
+fun CryptoWalletHomeScreen() {
+    Column {
+        CryptoWalletCoinCardPairRow()
+
+        AssetCardListDemoScreen()
+    }
+}
 @Composable
 @Preview(device = Devices.PIXEL_4, backgroundColor = 0xFFFFFFFF, showBackground = true)
 fun CryptoWalletCoinCardPairRow() {
