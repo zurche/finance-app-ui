@@ -90,7 +90,7 @@ fun AssetPerformanceCard(
 
             TickerName(assetInfo.name, assetInfo.tickerName)
 
-            PerformanceChart(Modifier.height(50.dp).width(100.dp), assetInfo.lastDayChange)
+            PerformanceChart(Modifier.height(40.dp).width(90.dp), assetInfo.lastDayChange)
 
             ValueView(assetInfo.currentValue, assetInfo.total)
         }
@@ -118,7 +118,6 @@ fun ValueView(currentValue: Float, total: Float) {
     }
 }
 
-//TODO: first line starts always from 0f. This is misleading in the chart. Need to address by omi
 @Composable
 @Preview(heightDp = 300, widthDp = 300, backgroundColor = 0xFFFFFFFF, showBackground = true)
 fun PerformanceChart(modifier: Modifier = Modifier, list: List<Float> = listOf(10f, 20f, 3f, 1f)) {
