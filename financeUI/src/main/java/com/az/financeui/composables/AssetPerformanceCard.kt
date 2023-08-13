@@ -69,7 +69,7 @@ private val mockAssetInfo = AssetInfo(
 
 @Composable
 @Preview(device = Devices.PIXEL_4_XL)
-fun AssetCard(
+fun AssetPerformanceCard(
     assetInfo: AssetInfo = mockAssetInfo
 ) {
     Card(

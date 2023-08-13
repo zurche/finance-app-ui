@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.az.financeui.R
-import com.az.financeui.composables.AssetCard
+import com.az.financeui.composables.AssetPerformanceCard
 import com.az.financeui.composables.AssetInfo
 
 private val demoAssetList: List<AssetInfo> = listOf(
@@ -88,7 +88,7 @@ private val demoAssetList: List<AssetInfo> = listOf(
 fun AssetCardListDemoScreen() {
     LazyColumn(modifier = Modifier.padding(10.dp), content = {
         items(demoAssetList.size) { index ->
-            AssetCard(assetInfo = demoAssetList[index])
+            AssetPerformanceCard(assetInfo = demoAssetList[index])
         }
     })
 }
